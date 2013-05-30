@@ -78,16 +78,26 @@
                     </select>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" id="filefield">
                 <label class="control-label" for="userfile">File Multimedia</label>
                 <div class="controls form-inline">
-                    <input type="file" id="userfile" name="userfile" value="<?=$file?>" size="30" required>
+                    <input type="file" id="userfile" name="userfile" value="<?=$file?>" size="30" >
+                    <a href="<?=site_url();?>/pengumuman/pengumuman/delete_file/<?=$file?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete file</a>
                 </div>
             </div>
+            <script>
+                $("#jenis").click(function (event){
+                    if($(this).val() == 1){
+                        $("#filefield").show();
+                    }else{
+                        $("#filefield").hide();
+                    }
+                });
+            </script>
             <div class="control-group">
                 <label class="control-label" for="submit"></label>
                 <div class="controls">
-                    <input type="submit" id="submit" value="Update" class="btn btn-danger"/>
+                    <input type="submit" id="submit" value="Update" class="btn btn-primary "/>
                 </div>
             </div>
             <?=form_close()?>

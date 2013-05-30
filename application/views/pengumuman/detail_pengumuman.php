@@ -65,7 +65,7 @@
         <div class="control-group">
             <label class="control-label" for="tombol"></label>
             <div class="controls">
-                <?= anchor(site_url('pengumuman/pengumuman/edit_pengumuman/'.$id), 'Edit', 'id="tombol" class="btn btn-info"');?>
+                <?= anchor(site_url('pengumuman/pengumuman/edit_pengumuman/'.$id), 'Edit', 'id="tombol" class="btn btn-primary"');?>
             </div>
         </div>
         <?php endif; ?>

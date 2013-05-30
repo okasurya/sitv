@@ -88,12 +88,21 @@
                     </select>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" id="filefield">
                 <label class="control-label" for="userfile">File Multimedia</label>
                 <div class="controls">
-                    <input type="file" id="userfile" name="userfile" size="30" required>   
+                    <input type="file" id="userfile" name="userfile" size="30">   
                 </div>
             </div>
+            <script>
+                $("#jenis").click(function (event){
+                    if($(this).val() == 1){
+                        $("#filefield").show();
+                    }else{
+                        $("#filefield").hide();
+                    }
+                });
+            </script>
             <div class="control-group">
                 <label class="control-label" for="submit"></label>
                 <div class="controls">
