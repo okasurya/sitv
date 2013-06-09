@@ -31,7 +31,8 @@ class Pengumuman extends CI_Controller{
         
         //upload file
         if($this->form_validation->run() == TRUE){
-            if( !$this->upload->do_upload($filepath) == TRUE){
+            if( $this->input->post('jenis') == 1 and !$this->upload->do_upload($filepath) == TRUE){
+                $error['title'] = 'Error, Please select a file';
                 $error = array('error' => $this->upload->display_errors());
                 $this->load->view('pengumuman/upload_error', $error);
             }
@@ -62,25 +63,25 @@ class Pengumuman extends CI_Controller{
                 );
                 //insert into database
                 $this->pengumuman_model->insertPengumuman($data);
-                $sitedata['status'] = "Penambahan pengumuman berhasil !";
+                $sitedata['status_p'] = "Penambahan pengumuman berhasil !";
                 //after all chaos end
                 $this->load->view('pengumuman/form_tambah_pengumuman', $sitedata);
-
-                
             }
         }
         else{
-            $sitedata['status'] ='';
+            $sitedata['status_p'] =NULL;
             $this->load->view('pengumuman/form_tambah_pengumuman', $sitedata);
         }
     }
     function detail_pengumuman($id){
         $sitedata['detail'] = $this->pengumuman_model->selectPengumuman($id);
+        $sitedata['status_p'] = NULL;
         $this->load->view('pengumuman/detail_pengumuman', $sitedata);
     }
     function edit_pengumuman($id){
             $query = $this->pengumuman_model->selectPengumuman($id);
             foreach ($query->result() as $row){
+                $sitedata['id'] = $row->ID_PENGUMUMAN;
                 $sitedata['title'] = $row->JUDUL_PENGUMUMAN;
                 $sitedata['desc'] = $row->DESKRIPSI_PENGUMUMAN;
                 $sitedata['tanggalmulai'] = $row->TANGGAL_MULAI;
@@ -108,17 +109,63 @@ class Pengumuman extends CI_Controller{
     }
     
     function update(){
-        $judul = $this->input->post('judul');
-        $deskripsi = $this->input->post('deskripsi');
-        $mulai = (string)$this->input->post('mulai')." ".(string)$this->input->post('jammulai').":".(string)$this->input->post('menitmulai');
-        $selesai = (string)$this->input->post('selesai')." ".(string)$this->input->post('jamselesai').':'.(string)$this->input->post('menitselesai');
-        $id_jenis = $this->input->post('jenis');
-        $id_pengisi = $this->session->userdata('user_id');
-        $id_status = '0';
+        if( $this->input->post('jenis') == 1 and !$this->upload->do_upload($filepath) == TRUE){
+                $error['title'] = 'Error, Please select a file';
+                $error = array('error' => $this->upload->display_errors());
+                $this->load->view('pengumuman/upload_error', $error);
+        }else{
+            date_default_timezone_set('Asia/Jakarta');
+            
+            if( $this->input->post('jenis') == 2){
+                $uploaddata['file_name'] = '';
+            }else{
+                $uploaddata = $this->upload->data();
+            }
+            $id = $this->input->post('id');
+            $query = $this->pengumuman_model->selectPengumuman($id);
+            foreach ($query->result() as $row){
+                $tanggalmulai = $row->TANGGAL_MULAI;
+                $tanggalselesai = $row->TANGGAL_SELESAI;
+            }
+            if((string)$this->input->post('mulai') == ''){
+                $tanggalmulai = $tanggalmulai;
+                if((string)$this->input->post('selesai') == ''){
+                    $tanggalselesai = $tanggalselesai;
+                }else{
+                    $tanggalselesai = (string)$this->input->post('selesai');
+                }
+            }else{
+                $tanggalmulai = (string)$this->input->post('mulai');
+            }
+            $data = array(
+                'judul_pengumuman'=>$this->input->post('judul'),
+                'deskripsi_pengumuman'=>$this->input->post('deskripsi'),
+                'mulai_tayang_pengumuman'=>$tanggalmulai." ".(string)$this->input->post('jammulai').":".(string)$this->input->post('menitmulai'),
+                'selesai_tayang_pengumuman'=>$tanggalselesai." ".(string)$this->input->post('jamselesai').':'.(string)$this->input->post('menitselesai'),
+                'id_jenis_pengumuman'=>$this->input->post('jenis'),
+                'lokasi_file_pengumuman'=>$uploaddata['file_name'],
+                'id_pengisi_pengumuman'=>$this->session->userdata('user_id'),
+                'id_status_pengumuman'=> '0',
+                'timestamp_pengumuman'=>date('Y-m-d H:i:s')
+            ); 
+            $this->pengumuman_model->updatePengumuman($id, $data);
+            $sitedata['status_p'] = 'Update Pengumuman Berhasil!';
+            $sitedata['detail'] = $this->pengumuman_model->selectPengumuman($id);
+            $this->load->view('pengumuman/detail_pengumuman', $sitedata);
+        }
     }
     
-    function delete_file($file){
+    function delete_file($id){
         unlink('uploads/'.$file);
+        $data['lokasi_file_pengumuman'] = '';
+        $this->pengumuman_model->updatePengumuman($id, $data);
+    }
+    
+    function download($id){
+        
+    }
+    function delete($id){
+        
     }
 }
 ?>

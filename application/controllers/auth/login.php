@@ -9,15 +9,16 @@
         
         function index(){
             $sitedata['title'] = 'Login';
+            $sitedata['status'] = '';
             $this->load->view('login_view', $sitedata);
         }
         
         function masuk(){
             $sitedata['title'] = 'Login';
+            $sitedata['status'] = '';
             if($this->session->userdata('logged_in') == TRUE){
                 redirect('home');
-            }
-            else if($this->cekForm() == TRUE){
+            }else{
                 $name = $this->input->post('emailfield');
                 $pass = md5($this->input->post('passfield'));
                 $result = $this->user_model->cekLogin($name, $pass);
@@ -36,27 +37,15 @@
                     redirect('home');
                 }
                 else{
-                    redirect('auth/login', $sitedata);
+                    $sitedata['status'] = 'Login gagal, cek email/password!';
+                    $this->load->view('login_view', $sitedata);
                 }
-            }
-            else{
-                $this->load->view('login_view', $sitedata);
             }
         }
         
         function keluar(){
             $this->session->sess_destroy();
             redirect('auth/login', $sitedata);
-        }
-        
-        function cekForm(){
-            $this->form_validation->set_rules('emailfield', 'email', 'required');
-            $this->form_validation->set_rules('passfield', 'password', 'required');
-            
-            $this->form_validation->set_message('required', 'Kolom %s harus diisi!');
-            $this->form_validation->set_error_delimiters('<li class="error">', '</li>');
-            
-            return $this->form_validation->run();
         }
     }
 ?>

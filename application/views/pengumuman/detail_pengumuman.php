@@ -18,6 +18,12 @@
     $this->load->view('template/header', $sitedata);
 ?>
     <h1>Detail Pengumuman <small><?=$row->JUDUL_PENGUMUMAN;?></small></h1>
+    <?php if(! $status_p == NULL) : ?>
+        <div class="alert alert-success">
+           <?=$status_p?>
+           <a href="#" class="close" data-dismiss="alert">&times;</a>
+        </div>
+    <?php endif; ?>
     <form class="form-horizontal">
         <div class="control-group">
             <label class="control-label" for="deskripsi">Deskripsi Pengumuman</label>
@@ -56,12 +62,14 @@
             </div>
         </div>
         <?php if (($this->session->userdata('role') == 1) or ($this->session->userdata('user_id')== $id_pengisi)): ?>
-         <div class="control-group">
+        <?php if($jenis == 1) : ?>
+        <div class="control-group">
             <label class="control-label" for="file">File</label>
             <div class="controls">
                 <?= anchor(base_url('uploads/'.$fileurl), 'Download', 'class="btn btn-inverse"'); ?>
             </div>
         </div>
+        <?php endif; ?>
         <div class="control-group">
             <label class="control-label" for="tombol"></label>
             <div class="controls">

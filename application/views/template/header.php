@@ -21,13 +21,14 @@
         <link rel="stylesheet" href="<?=base_url()?>public/site/css/main.css">
         <!-- plugin css -->
         <link rel="stylesheet" type="text/css" href="<?=base_url()?>public/jquery-ui/css/jquery.ui.all.css" />
-        <link rel="stylesheet" type="text/css" href="<?=base_url()?>public/jquery-ui/css/jquery.ui.css" />
+        <link rel="stylesheet" type="text/css" href="<?=base_url()?>public/jquery-ui/css/jquery-ui.css" /
+		<link rel="stylesheet" type="text/css" href="<?=base_url()?>public/jquery-ui/css/jquery.ui.theme.css" /
         <!-- site js -->
         <script src="<?=base_url()?>public/site/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <!-- plugin js -->
         <script src="<?=base_url()?>public/jquery-1.9.1.js" type="text/javascript"></script>
-        <script src="<?=base_url()?>public/jquery-ui/ui/jquery.ui.core.js"></script>
-	<script src="<?=base_url()?>public/jquery-ui/ui/jquery.ui.widget.js"></script>
+        <script src="<?=base_url()?>public/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+		<script src="<?=base_url()?>public/jquery-ui/ui/jquery-ui.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -49,7 +50,18 @@
                         <ul class="nav">
                             <li><?=anchor(site_url(), '<i class="icon-home icon-white"></i> Home')?></li>
                             <?php if($this->session->userdata('logged_in')) : ?>
-                            <li><?=anchor(site_url('pengumuman/pengumuman'), '<i class="icon-plus-sign icon-white"></i> Tambah Pengumuman', '');?></li>                            
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-th-list icon-white"></i> Pengumuman<b class="caret"></b></a>                           
+                                <ul class="dropdown-menu">
+                                    <li><?=anchor(site_url('pengumuman/pengumuman'), '<i class="icon-plus-sign icon"></i> Tambah Pengumuman', '');?></li>
+                                    <?php if($this->session->userdata('role') == 1) : ?>
+                                        <li class="nav-header">Admin Panel</li>
+                                        <li><?=anchor(site_url('pengumuman/manajemen'), '<i class="icon-film icon"></i> Pengumuman Multimedia', '');?>
+                                        <li><?=anchor(site_url('pengumuman/manajemen_teks'), '<i class="icon-list-alt icon"></i> Pengumuman Text', '');?>
+										<li><?=anchor(site_url('pengumuman/manajemen'), '<i class="icon-film icon"></i> Pengumuman Bebas', '');?>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
                             <!--
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -73,10 +85,9 @@
                             </li>
                         </ul>
                             <?php if($this->session->userdata('logged_in')) : ?>
-                                <form class="navbar-form pull-right" action="<?=site_url('auth/login/keluar')?>">
+                                <form class="navbar-form pull-right" action="<?=site_url('auth/login/keluar');?>">
                                     <input type="submit" value="Keluar" class="btn btn-danger">
                                 </form>
-                                <?php // anchor(site_url('auth/login/keluar'),'Keluar','class="pull-right"');?>
                             <?php else : ?>
                                 <?= form_open('auth/login/masuk','name="login_form" class="navbar-form pull-right"'); ?>
                                     <input type="email" name="emailfield" placeholder="Email" class="span2" required>

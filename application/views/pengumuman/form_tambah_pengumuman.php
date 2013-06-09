@@ -2,9 +2,9 @@
     $this->load->view('template/header');
 ?>
             <h1><?=$title?></h1> 
-            <?php if(! $status == '') : ?>
+            <?php if(! $status_p == NULL)) : ?>
             <div class="alert alert-success">
-               <?=$status?>
+               <?=$status_p?> <a href="<?=site_url('home')?>"> Kembali ke menu awal</a>
                <a href="#" class="close" data-dismiss="alert">&times;</a>
             </div>
             <?php endif; ?>
@@ -88,6 +88,15 @@
                     </select>
                 </div>
             </div>
+            <script>
+                /* $("#jenis").click(function (event){
+                    if($(this).val() == 1){
+                        <?php $requpload = 'required'; ?>
+                    }else{
+                        <?php $requpload = ''; ?>
+                    }
+                }); */
+            </script>
             <div class="control-group" id="filefield">
                 <label class="control-label" for="userfile">File Multimedia</label>
                 <div class="controls">
@@ -98,6 +107,7 @@
                 $("#jenis").click(function (event){
                     if($(this).val() == 1){
                         $("#filefield").show();
+						$("#userfile").attr('', 'required');
                     }else{
                         $("#filefield").hide();
                     }
@@ -111,7 +121,6 @@
             </div>
             <?=form_close()?>
             
-<script src="<?=base_url()?>public/jquery-ui/ui/jquery.ui.datepicker.js"></script>
 <script>
 $(function() {
     $( "#waktumulai" ).datepicker();
