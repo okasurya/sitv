@@ -642,3 +642,6 @@ div.pGroup {
 .flexigrid div.fbutton .new {
     background: url("../images/icons/new.png") no-repeat scroll left center transparent;
 }
+.flexigrid div.fbutton .copy{
+    background: url("../images/icons/copy.png") no-repeat scroll left center transparent;
+}

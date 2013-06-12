@@ -2,7 +2,7 @@
     $this->load->view('template/header');
 ?>
             <h1><?=$title?></h1> 
-            <?php if(! $status_p == NULL)) : ?>
+            <?php if(! $status_p == NULL) : ?>
             <div class="alert alert-success">
                <?=$status_p?> <a href="<?=site_url('home')?>"> Kembali ke menu awal</a>
                <a href="#" class="close" data-dismiss="alert">&times;</a>

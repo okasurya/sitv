@@ -1,4 +1,7 @@
 C:\xampp\htdocs\sitv\uploads\final-ise-oprec.jpg	0	-1
+C:\xampp\htdocs\sitv\uploads\fcs.jpg	0	-1
+C:\xampp\htdocs\sitv\uploads\189117.jpg	0	-1
+C:\xampp\htdocs\sitv\uploads\psg_away.jpg	0	-1
 C:\xampp\htdocs\sitv\uploads\apache_pb.png	0	-1
 C:\xampp\htdocs\sitv\uploads\DSC_0802.JPG	0	-1
 C:\xampp\htdocs\sitv\uploads\amins1.png	0	-1

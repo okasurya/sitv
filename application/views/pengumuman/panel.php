@@ -125,6 +125,19 @@
 				});
 			}
 		}
+		if (com=='Copy to Clipboard'){
+			if($('.aprd',grid).length>0){
+				var items = $('.aprd',grid);
+				var itemlist ='';
+				for(i=0;i<items.length;i++){
+					items[i] = items[i].id.substr(3);
+					itemlist += document.getElementById("aprd"+items[i]+"")+" -- ";
+				}
+				
+			} else{
+				
+			}
+		}
 	}
     </script>
     <br>

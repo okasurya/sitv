@@ -99,6 +99,7 @@ class Pengumuman extends CI_Controller{
             if(($this->session->userdata('role') == 1) or ($this->session->userdata('user_id') == $idpengisi)){
                 $sitedata['idpengisi'] = $idpengisi;
                 $sitedata['id'] = $id;
+				$sitedata['status_p'] = '';
                 $this->load->view('pengumuman/edit_pengumuman', $sitedata);
             }
             else{

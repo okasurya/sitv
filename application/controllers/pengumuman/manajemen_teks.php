@@ -48,7 +48,9 @@
 			$buttons[] = array('Select None','cross','menu1');
 			$buttons[] = array('separator');
 			$buttons[] = array('Approve','add','menu1');
-			$buttons[] = array('Reject','delete','menu1');			
+			$buttons[] = array('Reject','delete','menu1');
+			$buttons[] = array('separator');
+			$buttons[] = array('Copy to Clipboard', 'copy', 'menu1');
 					
 			//Build js
 			//View helpers/flexigrid_helper.php for more information about the params on this function
@@ -72,19 +74,27 @@
                 $new='<img src="'.base_url('public/images/icons/new.png').'" title="New"/>';
                 $approved='<img src="'.base_url('public/images/icons/approve.png').'" title="Approved" class="app'.$row->ID_PENGUMUMAN.'"/>';
                 $rejected='<img src="'.base_url('public/images/icons/reject.png').'" title="Rejected"/>';
+				$desc = '';
+				$desc1 = '';
                 if($row->ID_STATUS_PENGUMUMAN == 0){
                     $status = $new;
+					$desc = '';
+					$desc1 = '';
                 } else if($row->ID_STATUS_PENGUMUMAN == 1){
                     $status = $approved;
+					$desc ='<span id="aprd'.$row->ID_PENGUMUMAN.'" class="aprd">';
+					$desc1 = '</div>';
                 } else if($row->ID_STATUS_PENGUMUMAN == 2){
                     $status = $rejected;
+					$desc = '';
+					$desc1 = '';
                 }
 				$record_items[] = array(
 					$row->ID_PENGUMUMAN,
 					$no++,
 					$link_edit,
 					$row->JUDUL_PENGUMUMAN,
-					$row->DESKRIPSI_PENGUMUMAN,
+					$desc.$row->DESKRIPSI_PENGUMUMAN.$desc1,
 					$row->USER_NAME,
 					//$ubah_indeks,
 					$row->TANGGAL_MULAI,
